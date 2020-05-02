@@ -10,7 +10,38 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const employees = [];
 
+// let html = render(employees)
+// fs.writeFileSync('./output/team.html', html)
+const emplyeePrompts = [
+  {
+    type: "input",
+    name: "firstName",
+    message: "Please enter your first name",
+  },
+
+  {
+    type: "input",
+    name: "id",
+    message: "Please enter your emplyee ID",
+  },
+
+  {
+    type: "input",
+    name: "email",
+    message: "Please enter your work email address",
+  },
+];
+
+const employeePositionSelector = {
+  type: "list",
+  name: "position",
+  message: "Please select your current position with Wayne Enterprises",
+  choices: ["Intern", "Engineer", "Manager"],
+};
+let intern = new Intern(answer.name, answer.id , )
+const 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
