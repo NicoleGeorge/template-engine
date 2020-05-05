@@ -10,38 +10,113 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const employees = [];
-
-// let html = render(employees)
-// fs.writeFileSync('./output/team.html', html)
 const emplyeePrompts = [
   {
     type: "input",
-    name: "firstName",
-    message: "Please enter your first name",
+    name: "name",
+    message: "Please enter your full name",
+    default: "Bruce Wayne"
   },
 
   {
     type: "input",
     name: "id",
-    message: "Please enter your emplyee ID",
+    message: "Please enter your Wayne Enterprises emplyee ID",
+    default: "22286266"
   },
 
   {
     type: "input",
     name: "email",
     message: "Please enter your work email address",
+    default: "bruce@wayneenterprises.org"
   },
 ];
 
 const employeePositionSelector = {
   type: "list",
   name: "position",
-  message: "Please select your current position with Wayne Enterprises",
+  message: "Please select your current position at Wayne Enterprises",
   choices: ["Intern", "Engineer", "Manager"],
 };
-let intern = new Intern(answer.name, answer.id , )
-const 
+
+const managerPrompts = {
+  type: "input",
+  name: "officeNumber",
+  message: "Enter your direct office extension number",
+  default: "466684426"
+}
+
+const engineerPrompts = {
+  type: "input",
+  name: "github",
+  message: "Enter your GitHub profile details",
+  default: "/lucius.fox"
+}
+
+const internPrompts = {
+  type: "input",
+  name: "school",
+  message: "Enter your school",
+  default: "Gotham City University"
+}
+
+const employees = [];
+
+function mainMenu() {
+  inquirer .prompt([emplyeePrompts, managerPrompts])
+  .then(function(answer) {
+
+    const manager = new Manager(answer.name, answer.id , answer.email, answer.officeNumber);
+    employees.push(manager);
+
+    createEmplyee();
+  });
+  
+mainMenu();
+
+function createEmplyee() {
+  inquirer
+    .prompt(employeePositionSelector, managerPrompts)
+    .then(function(answer) {
+      switch(answer.role) {
+        case "Engineer":
+          createEngineer();
+          break;
+        case "Intern":
+          createIntern();
+          break;
+        default:     
+      }
+    })
+}
+
+function createEngineer() {
+  inquirer
+    .prompt([emplyeePrompts, engineerPrompts])
+    .then(function(answer) {
+      const engineer = new Engineer(answer.name, answer.id, answer.email, answer.github);
+        emplyeePrompts.push(engineer);
+
+        createEngineer();
+    })
+} 
+
+function createIntern() {
+  inquirer
+    .prompt([emplyeePrompts, internPrompts])
+    .then(function(answer) {
+      const intern = new Intern(answer.name, answer.id, answer.email, answer.school);
+        emplyeePrompts.push(intern);
+
+        createIntern();
+    })
+} 
+
+render(answer) {
+  return 
+}
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
@@ -64,3 +139,4 @@ const
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+}
